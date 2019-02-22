@@ -1,13 +1,16 @@
 
-Microphone Array Speech Processing
+### Microphone Array Speech Processing
+
 ----------
 
 A collection of tools.
 
 **Simulation**:
 
- -  [Room Impulse Response generator](https://www.audiolabs-erlangen.de/fau/professor/habets/software/rir-generator)
+ - [Room Impulse Response generator](https://www.audiolabs-erlangen.de/fau/professor/habets/software/rir-generator)
  - [Diffuse noise generator](https://www.audiolabs-erlangen.de/fau/professor/habets/software/noise-generators)
+
+Note: the mex-function in RIR-Generator needs to be recompiled for a 64-bit computer.
 
 **Beamformer**
 
@@ -16,6 +19,8 @@ A collection of tools.
  - Adaptive Beamformers: MVDR, MWF, GEV, Variable Span filter
  - LCMV
  - GSC
+
+Note: here only considers the offline implementations.
 
 **Blind Source Separation**
 
@@ -27,11 +32,15 @@ A collection of tools.
 **Dereverberation**
 
  - [WPE](http://www.kecl.ntt.co.jp/icl/signal/wpe/index.html)
+ - [GWPE](https://github.com/fgnt/nara_wpe)
 
 **Localization**
 
- - [SRP-PHAT](http://bass-db.gforge.inria.fr/bss_locate/)
+ - [SRP-PHAT](http://bass-db.gforge.inria.fr/bss_locate/) etc.
 
+**Estimation**
+
+ - [Probabilistic models](https://github.com/fgnt/pb_bss): CGMM, CWMM, etc.
 
 **Evaluation**
 
@@ -40,3 +49,5 @@ A collection of tools.
  - [SDR](http://bass-db.gforge.inria.fr/bss_eval/)
 
 **STFT**
+
+----------

@@ -93,11 +93,14 @@ for az=1:360
         beamPattern(az,bin) = max(20*log10(beamPattern(az,bin)), -30); % in dB
     end
 end
-figure; imagesc(beamPattern); axis xy; colorbar
+figure; imagesc(beamPattern); axis xy; colorbar;
+title(['BeamPattern of DS steered towards azimuth ' num2str(cfg.az)]);
+xlabel('frequency index'); ylabel('azimuth angle');
 
 % white noise gain
 for bin=1:Nbin
     whiteNoiseGain(bin) = 10*log10(1/(hDS(:,bin)'*hDS(:,bin)));
 end
-figure; plot(whiteNoiseGain)
-
+figure; plot(whiteNoiseGain); ylim([0,10]);
+title('WNG of DS');
+xlabel('frequency index'); ylabel('WNG in dB');

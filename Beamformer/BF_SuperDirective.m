@@ -123,11 +123,14 @@ for az=1:360
     end
 end
 figure;imagesc(beamPattern); axis xy; colorbar
+title(['BeamPattern of SD steered towards azimuth ' num2str(cfg.az)]);
+xlabel('frequency index'); ylabel('azimuth angle');
 
 % white noise gain
 for bin=1:Nbin
     whiteNoiseGain(bin) = 10*log10(1/(hSuperDirective(:,bin)'*hSuperDirective(:,bin)));
 end
 figure; plot(whiteNoiseGain)
-
+title(['WNG of SD with diagnal loading (' num2str(diagLoad) ')']);
+xlabel('frequency index'); ylabel('WNG in dB');
 
