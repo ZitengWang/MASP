@@ -81,7 +81,7 @@ SDcov = ones(Nch, Nch, Nbin);
 for bin = 1:Nbin
     for chi=1:Nch-1
         for chj=chi+1:Nch
-            SDcov(chi,chj,bin) = sinc(2*bin/Nfft*fs*norm(micPose(chi,:)-micPose(chj,:))/c);
+            SDcov(chi,chj,bin) = sinc(2*(bin-1)/Nfft*fs*norm(micPose(chi,:)-micPose(chj,:))/c);
             SDcov(chj,chi,bin) = SDcov(chi,chj,bin);
         end
     end
