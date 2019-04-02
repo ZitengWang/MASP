@@ -8,11 +8,12 @@ clear all
 close all
 warning('off')
 addpath('..\STFT\')
+addpath('..\Simulation\')
 addpath('..\Simulation\RIR-Generator\')
 
 %% simulation start
 flatStart = 1;
-postfix = '';   % for saving file
+prefix = '';   % for saving file
 
 speechDir = '..\Simulation\Data\';
 speechFile = 'fajw0_sa1.wav';
@@ -134,7 +135,7 @@ for frm=1:Nframe
     st = st + Nshift;
 end
 
-audiowrite([saveDir 'GSC_lms' postfix '.wav'], yout, fs);
+audiowrite([saveDir prefix 'GSC_lms' postfix '.wav'], yout, fs);
 
 %% GSC wiener (closed form solution) is LCMV
 % % resume
@@ -171,4 +172,4 @@ audiowrite([saveDir 'GSC_lms' postfix '.wav'], yout, fs);
 %     st = st + Nshift;
 % end
 % 
-% audiowrite([saveDir 'GSC_wiener' postfix '.wav'], yout, fs);
+% audiowrite([saveDir prefix 'GSC_wiener' postfix '.wav'], yout, fs);

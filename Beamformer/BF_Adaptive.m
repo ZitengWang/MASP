@@ -6,11 +6,12 @@ clear all
 close all
 warning('off')
 addpath('..\STFT\')
+addpath('..\Simulation\')
 addpath('..\Simulation\RIR-Generator\')
 
 %% simulation start
 flatStart = 1;
-postfix = '';   % for saving file
+prefix = '';   % for saving file
 
 speechDir = '..\Simulation\Data\';
 speechFile = 'fajw0_sa1.wav';
@@ -89,7 +90,7 @@ if iscategory(BFtype, 'MVDR')
     % apply the filter
     Xest = sum(bsxfun(@times, conj(permute(hMVDR, [3,2,1])), Y), 3);
     xest = istft_multi_2(Xest, length(speech));
-    audiowrite([saveDir 'MVDR_' choice postfix '.wav'], xest, fs);
+    audiowrite([saveDir prefix 'MVDR_' choice postfix '.wav'], xest, fs);
 end  
 if iscategory(BFtype, 'MWF')
     % the MWF filter
@@ -101,7 +102,7 @@ if iscategory(BFtype, 'MWF')
     % apply the filter
     Xest = sum(bsxfun(@times, conj(permute(hMWF, [3,2,1])), Y), 3);
     xest = istft_multi_2(Xest, length(speech));
-    audiowrite([saveDir 'MWF_' choice postfix '.wav'], xest, fs);
+    audiowrite([saveDir prefix 'MWF_' choice postfix '.wav'], xest, fs);
 end    
 if iscategory(BFtype, 'GEV')
     % the GEV filter
@@ -111,7 +112,7 @@ if iscategory(BFtype, 'GEV')
     % apply the filter
     Xest = sum(bsxfun(@times, conj(permute(hGEV, [3,2,1])), Y), 3);
     xest = istft_multi_2(Xest, length(speech));
-    audiowrite([saveDir 'GEV' postfix '.wav'], xest, fs);
+    audiowrite([saveDir prefix 'GEV' postfix '.wav'], xest, fs);
 end    
 if iscategory(BFtype, 'VS')
     % the Variable Span filter
@@ -123,7 +124,7 @@ if iscategory(BFtype, 'VS')
     % apply the filter
     Xest = sum(bsxfun(@times, conj(permute(hVS, [3,2,1])), Y), 3);
     xest = istft_multi_2(Xest, length(speech));
-    audiowrite([saveDir 'VS' postfix '.wav'], xest, fs);
+    audiowrite([saveDir prefix 'VS' postfix '.wav'], xest, fs);
 end
 
 

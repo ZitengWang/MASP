@@ -7,9 +7,9 @@ fs = cfg.fs;                    % Sample frequency (samples/s)
 room = cfg.room;                % Room dimensions [x y z] (m)
 T60 = cfg.T60;                  % Reverberation time (s)
 beta = max(T60 * fs, 300);
-SAVE_RVB_DETAILS = 0;           % save the early/late reverberant files
+SAVE_RVB_DETAILS = 1;           % save the early/late reverberant files
 
-postfix = [postfix '_RT' num2str(T60)];
+postfix = ['_RT' num2str(T60)]; % for saving the setup
 
 Nch = cfg.Nch;
 micCenter = cfg.micCenter;          % array center (m)
@@ -21,12 +21,13 @@ az = cfg.az;
 el = cfg.el;
 dist = cfg.dist;
 sourcePose = dist * [cos(el/180*pi)*cos(az/180*pi) cos(el/180*pi)*sin(az/180*pi) sin(el/180*pi)] + micCenter;
+TDOA = sqrt(sum((bsxfun(@minus, sourcePose, micPose)).^2, 2))/c;
 
 if flatStart
     rirSimu = rir_generator(c, fs, micPose, sourcePose, room, T60, beta);
     save([saveDir 'rirSimu_RT' num2str(T60) '_tmp.mat'],'rirSimu');
 else
-    load([saveDir 'rirSimu_RT' num2str(T60) '_tmp.mat'],'rirSimu');
+    load([saveDir 'rirSimu_RT' num2str(T60) '_tmp.mat']);
 end
 
 % observe
@@ -37,8 +38,6 @@ for ch=1:Nch
 end
 
 % early and late reverberation
-TDOA = sqrt(sum((bsxfun(@minus, sourcePose, micPose)).^2, 2))/c;
-
 if SAVE_RVB_DETAILS && (T60 > 0.1)
     xd = zeros(length(speech), Nch);    % the direct sound
     xr = zeros(length(speech), Nch);    % the reverberant signal without the direct part 

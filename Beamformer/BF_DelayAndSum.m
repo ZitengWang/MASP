@@ -4,11 +4,12 @@
 clear all
 warning('off')
 addpath('..\STFT\')
+addpath('..\Simulation\')
 addpath('..\Simulation\RIR-Generator\')
 
 %% simulation start
 flatStart = 1;
-postfix = '';   % for saving file
+prefix = '';   % for saving file
 
 speechDir = '..\Simulation\Data\';
 speechFile = 'fajw0_sa1.wav';
@@ -79,7 +80,7 @@ xest = istft_multi_2(Xest, length(speech));
 
 
 %% record and plot
-audiowrite([saveDir 'DelayAndSum' postfix '.wav'], xest, fs);
+audiowrite([saveDir prefix 'DelayAndSum' postfix '.wav'], xest, fs);
 
 % plot the beampattern
 dist = 2;

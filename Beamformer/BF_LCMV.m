@@ -11,11 +11,12 @@ clear all
 close all
 warning('off')
 addpath('..\STFT\')
+addpath('..\Simulation\')
 addpath('..\Simulation\RIR-Generator\')
 
 %% simulation start
 flatStart = 1;
-postfix = '';   % for saving file
+prefix = '';   % for saving file
 
 speechDir = '..\Simulation\Data\';
 speechFile = 'fajw0_sa1.wav';
@@ -136,5 +137,5 @@ for frm=1:Nframe
     st = st + Nshift;
 end
 
-audiowrite([saveDir 'LCMV' postfix '.wav'], yout / max(abs(yout)) * 0.8, cfg.fs);
+audiowrite([saveDir prefix 'LCMV' postfix '.wav'], yout / max(abs(yout)) * 0.8, cfg.fs);
 

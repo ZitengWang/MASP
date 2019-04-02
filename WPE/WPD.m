@@ -7,11 +7,12 @@
 
 clear all
 addpath('..\STFT\')
+addpath('..\Simulation\')
 addpath('..\Simulation\RIR-Generator\')
 
 %% simulation start
 flatStart = 1;
-postfix = '';   % for saving file
+prefix = '';   % for saving file
 
 speechDir = '..\Simulation\Data\';
 speechFile = 'fajw0_sa1.wav';
@@ -114,7 +115,7 @@ for bin=1:Nbin
 end
 % check output 
 xeEst = istft_multi_2(XeEst, length(speech));
-audiowrite([saveDir 'WPD' postfix '.wav'], xeEst, fs);
+audiowrite([saveDir prefix 'WPD' postfix '.wav'], xeEst, fs);
 
 %%% impressive results
 %%% to apply WPE+MPDR for comparison

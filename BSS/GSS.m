@@ -7,11 +7,12 @@
 
 clear all
 addpath('..\STFT\')
+addpath('..\Simulation\')
 addpath('..\Simulation\RIR-Generator\')
 
 %% simulation start
 flatStart = 1;
-postfix = '';   % for saving file
+prefix = '';   % for saving file
 
 speechDir = '..\Simulation\Data\';
 speechFile = 'fajw0_sa1.wav';
@@ -73,20 +74,14 @@ Y = stft_multi_2(y, Nfft);
 Nsrc = 2;
 
 % for speech target
-sourcePose = cfg.dist * [cos(cfg.el/180*pi)*cos(cfg.az/180*pi) cos(cfg.el/180*pi)*sin(cfg.az/180*pi) sin(cfg.el/180*pi)] + cfg.micCenter;
-micPose = cfg.micCoordinate + repmat(cfg.micCenter, Nch, 1);
-TDOA = sqrt(sum((bsxfun(@minus, sourcePose, micPose)).^2, 2)) / 343;
 steerVec = zeros(Nch,Nbin);
 for bin=1:Nbin
     steerVec(:,bin) = exp(-2*1i*pi*(bin-1)/Nfft*fs*TDOA);
 end
 % for interference
-sourcePose = cfg.distITF * [cos(cfg.elITF/180*pi)*cos(cfg.azITF/180*pi) cos(cfg.elITF/180*pi)*sin(cfg.azITF/180*pi) sin(cfg.elITF/180*pi)] + cfg.micCenter;
-micPose = cfg.micCoordinate + repmat(cfg.micCenter, Nch, 1);
-TDOA = sqrt(sum((bsxfun(@minus, sourcePose, micPose)).^2, 2)) / 343;
 steerVecITF = zeros(Nch,Nbin);
 for bin=1:Nbin
-    steerVecITF(:,bin) = exp(-2*1i*pi*(bin-1)/Nfft*fs*TDOA);
+    steerVecITF(:,bin) = exp(-2*1i*pi*(bin-1)/Nfft*fs*TDOAinterf);
 end
 
 %%% try to follow the ODAS codes
@@ -135,13 +130,13 @@ end
 % output
 x1est = istft_multi_2(Xest(:,:,1), length(speech));        
 x2est = istft_multi_2(Xest(:,:,2), length(speech));  
-audiowrite([saveDir 'ODAS_src1' postfix '.wav'], x1est, fs);
-audiowrite([saveDir 'ODAS_src2' postfix '.wav'], x2est, fs);
+audiowrite([saveDir prefix 'ODAS_src1' postfix '.wav'], x1est, fs);
+audiowrite([saveDir prefix 'ODAS_src2' postfix '.wav'], x2est, fs);
 
 x1est = istft_multi_2(XestDS(:,:,1), length(speech));        
 x2est = istft_multi_2(XestDS(:,:,2), length(speech));  
-audiowrite([saveDir 'DS_src1' postfix '.wav'], x1est, fs);
-audiowrite([saveDir 'DS_src2' postfix '.wav'], x2est, fs);
+audiowrite([saveDir prefix 'DS_src1' postfix '.wav'], x1est, fs);
+audiowrite([saveDir prefix 'DS_src2' postfix '.wav'], x2est, fs);
 
 
 %%% try to follow the paper
@@ -191,6 +186,6 @@ audiowrite([saveDir 'DS_src2' postfix '.wav'], x2est, fs);
 % % output
 % x1est = istft_multi_2(Xest(:,:,1), length(speech));        
 % x2est = istft_multi_2(Xest(:,:,2), length(speech));  
-% audiowrite([saveDir 'GSS_src1' postfix '.wav'], x1est, fs);
-% audiowrite([saveDir 'GSS_src2' postfix '.wav'], x2est, fs);
+% audiowrite([saveDir prefix 'GSS_src1' postfix '.wav'], x1est, fs);
+% audiowrite([saveDir prefix 'GSS_src2' postfix '.wav'], x2est, fs);
 
