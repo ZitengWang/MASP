@@ -14,7 +14,7 @@ addpath('..\Simulation\RIR-Generator\')
 flatStart = 1;
 postfix = '';   % for saving file
 
-speechDir = 'Data\';
+speechDir = '..\Simulation\Data\';
 speechFile = 'fajw0_sa1.wav';
 saveDir = 'GeneratedData2\';
 if ~exist(saveDir)
@@ -53,7 +53,7 @@ end
 cfg.SIR = 0;              
 if cfg.SIR ~= inf
     % check the interference is longer than speech!
-    cfg.interfFile = 'Data\fgjd0_si818.wav';        
+    cfg.interfFile =[speechDir '\fgjd0_si818.wav'];        
     cfg.azITF = 120;
     cfg.elITF = 0;
     cfg.distITF = 2;

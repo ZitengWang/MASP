@@ -13,7 +13,7 @@ addpath('..\Simulation\RIR-Generator\')
 flatStart = 1;
 postfix = '';   % for saving file
 
-speechDir = 'Data\';
+speechDir = '..\Simulation\Data\';
 speechFile = 'fajw0_sa1.wav';
 saveDir = 'GeneratedData\';
 if ~exist(saveDir)
@@ -72,6 +72,7 @@ Y = stft_multi_2(y, Nfft);
 
 %% superdirective beamformer
 
+%%% diagloading value !
 diagLoad = 0.01;
 
 % diffuse noise coherence

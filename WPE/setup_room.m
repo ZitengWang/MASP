@@ -7,7 +7,7 @@ fs = cfg.fs;                    % Sample frequency (samples/s)
 room = cfg.room;                % Room dimensions [x y z] (m)
 T60 = cfg.T60;                  % Reverberation time (s)
 beta = max(T60 * fs, 300);
-SAVE_RVB_DETAILS = 0;           % save the early/late reverberant files
+SAVE_RVB_DETAILS = 1;           % save the early/late reverberant files
 
 postfix = [postfix '_RT' num2str(T60)];
 

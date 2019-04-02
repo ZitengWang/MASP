@@ -8,7 +8,7 @@
 
 function h = GEV(PhiX, PhiN, BANflag)
 if nargin < 3
-    BANflag = 1;        % default, true
+    BANflag = 1;        %%% apply BAN by default
 end
 
 [Nch, ~, Nbin] = size(PhiX);
@@ -22,7 +22,7 @@ for bin = 1:Nbin
     [vv, dd] = eig(PhiX(:,:,bin), PhiN(:,:,bin));
     [~, idx] = max(diag(dd));
     h(:,bin) = vv(:,idx);
-    if BANflag        % If not, the output signal is badly scaled.
+    if BANflag        %%% If not, the output signal is badly scaled.
         h(:,bin) = h(:,bin) * sqrt(trace(PhiN(:,:,bin))) / sqrt(Nch);
     end
 end

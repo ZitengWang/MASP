@@ -17,7 +17,7 @@ addpath('..\Simulation\RIR-Generator\')
 flatStart = 1;
 postfix = '';   % for saving file
 
-speechDir = 'Data\';
+speechDir = '..\Simulation\Data\';
 speechFile = 'fajw0_sa1.wav';
 saveDir = 'GeneratedData2\';
 if ~exist(saveDir)
@@ -56,7 +56,7 @@ end
 cfg.SIR = 0;              
 if cfg.SIR ~= inf
     % check the interference is longer than speech!
-    cfg.interfFile = 'Data\fgjd0_si818.wav';        
+    cfg.interfFile = [speechDir '\fgjd0_si818.wav'];         
     cfg.azITF = 120;
     cfg.elITF = 0;
     cfg.distITF = 2;
@@ -80,22 +80,20 @@ Nframe = floor(size(y,1)/Nshift) - 1;
 % constraint set
 C = zeros(Nch, 2, Nbin);
 
-% free field
+%%% free field
 % for bin=1:Nbin
 %     C(:,1,bin) = exp(-2*1i*pi*(bin-1)/Nfft*fs*TDOA)/Nch;
 %     C(:,2,bin) = exp(-2*1i*pi*(bin-1)/Nfft*fs*TDOAinterf)/Nch;
 % end
 % postfix = [postfix '_freeC1'];
 
-% % % ATF
+%%% ATF
 for ch=1:Nch
     tmp = fft(rirSimu(ch,:), Nfft);
     C(ch,1,:) = tmp(1:Nbin);
     tmp = fft(rirITFSimu(ch,:), Nfft);
     C(ch,2,:) = tmp(1:Nbin);
 end
-% C = bsxfun(@rdivide, C, C(1,:,:));    % RTF
-
 postfix = [postfix '_atfC'];
 
 %% LCMV
@@ -138,5 +136,5 @@ for frm=1:Nframe
     st = st + Nshift;
 end
 
-audiowrite([saveDir 'LCMV' postfix '.wav'], yout, cfg.fs);
+audiowrite([saveDir 'LCMV' postfix '.wav'], yout / max(abs(yout)) * 0.8, cfg.fs);
 

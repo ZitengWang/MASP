@@ -32,6 +32,10 @@ for bin = 1:Nbin
         tmp = PhiN(:,:,bin) \ PhiX(:,:,bin);
         lambda(bin) = trace(tmp);
         h(:,bin) = tmp * refVec / (mu + lambda(bin));
+        %%% Gain factor to normalize the steering vector. The results are 
+        %%% better. Needs further checking
+        %gain_factor = norm(PhiX(:,refMic,bin) / PhiX(refMic,refMic,bin));
+        %h(:,bin) = gain_factor * h(:,bin);
     elseif strcmp(choice, 'SDWMWF') % SDW-MWF is more sensitive to estimation errors.
         tmp = (PhiX(:,:,bin) + mu * PhiN(:,:,bin)) \ PhiX(:,:,bin);
         h(:,bin) = tmp * refVec;

@@ -1,3 +1,7 @@
+%AuxIVA
+% reference:Ono, Nobutaka. "Stable and fast update rules for 
+% independent vector analysis based on auxiliary function technique." WASPAA 2011.
+% ZitengWANG@201901
 
 clear all
 close all
@@ -7,7 +11,7 @@ Nfft = 1024;
 Nshift=Nfft/2;
 
 % input data
-[x, fs]=audioread('Data\reverb_RT0_interf_SIR0.wav'); 
+[x, fs]=audioread('GeneratedData\reverb_RT0_interf_SIR0.wav'); 
 x = x(:,1:2);
 
 % fft
@@ -49,6 +53,9 @@ Y = bsxfun(@times, Y, permute(z, [3,1,2]));
 
 %% output
 y = istft_multi_2(Y, size(x,1));
-saveDir = 'Data\';
+saveDir = 'GeneratedData\';
 audiowrite([saveDir 'AuxIVA_src1.wav'], y(:,1), fs);
 audiowrite([saveDir 'AuxIVA_src2.wav'], y(:,2), fs);
+%%% to update: permutation exists in the separated signals
+%%% check "Independent vector analysis based on overlapped cliques of 
+%%% variable width for frequency-domain blind signal separation"

@@ -10,9 +10,9 @@
 
 function h = VarSpan(PhiX, PhiN, mu, span, refMic)
 if nargin < 3
-    mu = 1;             % typical value {0, 1}
+    mu = 1;             %%% typical value {0, 1}
 elseif nargin < 4
-    span = 1;           % default 1
+    span = 1;           %%% default 1 for single-target
 elseif nargin < 5
     refMic = 1;
 end

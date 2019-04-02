@@ -12,7 +12,7 @@ addpath('..\Simulation\RIR-Generator\')
 flatStart = 1;
 postfix = '';   % for saving file
 
-speechDir = 'Data\';
+speechDir = '..\Simulation\Data\';
 speechFile = 'fajw0_sa1.wav';
 saveDir = 'GeneratedData\';
 if ~exist(saveDir)
@@ -51,7 +51,7 @@ end
 cfg.SIR = inf;              
 if cfg.SIR ~= inf
     % check the interference is longer than speech!
-    cfg.interfFile = '';        
+    cfg.interfFile = [speechDir '\mrgg0_si1829.wav'];        
     cfg.azITF = 180;
     cfg.elITF = 0;
     cfg.distITF = 2;
@@ -83,25 +83,25 @@ BFtype = categorical({'MVDR', 'MWF', 'GEV', 'VS'});
 if iscategory(BFtype, 'MVDR')
     % the MVDR filter
     refMic = 1;
-    choice = 'eigenVec';    % collected from 'eigenVec' 'gevd'
+    choice = 'eigenVec';    %%% collected from 'eigenVec' 'gevd'
     hMVDR = MVDR(PhiX, PhiN, refMic, choice);
     
     % apply the filter
     Xest = sum(bsxfun(@times, conj(permute(hMVDR, [3,2,1])), Y), 3);
     xest = istft_multi_2(Xest, length(speech));
-    audiowrite([saveDir 'MVDR_unitNorm' postfix '.wav'], xest, fs);
+    audiowrite([saveDir 'MVDR_' choice postfix '.wav'], xest, fs);
 end  
 if iscategory(BFtype, 'MWF')
     % the MWF filter
     mu = 1;
     refMic = 1;
-    choice = 'r1MWF';   % collected from 'r1MWF' 'SDWMWF'
+    choice = 'r1MWF';   %%% collected from 'r1MWF' 'SDWMWF'
     hMWF = MWF(PhiX, PhiN, mu, refMic, choice);
     
     % apply the filter
     Xest = sum(bsxfun(@times, conj(permute(hMWF, [3,2,1])), Y), 3);
     xest = istft_multi_2(Xest, length(speech));
-    audiowrite([saveDir 'MWF' postfix '.wav'], xest, fs);
+    audiowrite([saveDir 'MWF_' choice postfix '.wav'], xest, fs);
 end    
 if iscategory(BFtype, 'GEV')
     % the GEV filter

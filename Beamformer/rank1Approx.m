@@ -9,12 +9,12 @@ for bin = 1:Nbin
         disp(['bin ' num2str(bin) ': Noise covariance ill-conditioned.']);
         PhiN(:,:,bin) = PhiN(:,:,bin) + 1e-10 * eye(Nch);
     end
-    % GEVD (or Covariance Whitenning) based RTF estimation;
-    % could also use the principle eigenvector (or Covariance Substraction)
+    %%% GEVD (or Covariance Whitenning) based RTF estimation;
+    %%% optionally use the principle eigenvector (or Covariance Substraction)
     [vv,dd] = eig(PhiX(:,:,bin), PhiN(:,:,bin));
     [~,idx] = max(diag(dd));
     RTF = PhiN(:,:,bin) * vv(:,idx);
     tmp = RTF * RTF';
-    % normalize
+    %%% normalize
     PhiX(:,:,bin) = trace(PhiX(:,:,bin)) / trace(tmp) * tmp;
 end

@@ -37,12 +37,14 @@ if strcmp(choice, 'eigenVec')
     [vv, dd] = eig(PhiXbin);
     [~, idx] = max(diag(dd));
     steerVec = vv(:,idx);
-    % By default, this steering vector is unit normalized. This however changes 
-    % the scale of the output signal.
+    %%% By default, this steering vector is unit normalized. This however changes 
+    %%% the scale of the output signal.
 elseif strcmp(choice, 'gevd')
     [vv, dd] = eig(PhiXbin, PhiNbin);
     [~, idx] = max(diag(dd));
     steerVec = PhiNbin * vv(:,idx);
-    % By default, this steering vector is normalized to the reference channel.
+    %%% By default, this steering vector is normalized to the reference channel.
     steerVec = steerVec / (steerVec(refMic));
+    %%% But unit normalization brings better result. Needs further checking
+    % steerVec = steerVec / norm(steerVec);
 end
