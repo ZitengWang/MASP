@@ -10,7 +10,6 @@ A collection of tools.
  - [Room Impulse Response generator](https://www.audiolabs-erlangen.de/fau/professor/habets/software/rir-generator)
  - [Diffuse noise generator](https://www.audiolabs-erlangen.de/fau/professor/habets/software/noise-generators)
 
-Note: the mex-function in RIR-Generator needs to be recompiled for a 64-bit computer.
 
 **Beamformer**
 
@@ -26,7 +25,6 @@ Note: here only considers the offline implementations.
 
  - AuxIVA
  - [Geometry BSS](https://github.com/introlab/odas)
- - [ILRMA](https://github.com/d-kitamura/ILRMA)
  - [Trinicon](https://github.com/LCAV/pyroomacoustics)
 
 **Dereverberation**
@@ -47,6 +45,7 @@ Note: here only considers the offline implementations.
  - PESQ
  - STOI
  - [SDR](http://bass-db.gforge.inria.fr/bss_eval/)
+ - [SRMR](https://reverb2014.dereverberation.com/se_task.html)
 
 **STFT**
 

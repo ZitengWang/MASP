@@ -11,7 +11,7 @@ Nfft = 1024;
 Nshift=Nfft/2;
 
 % input data
-[x, fs]=audioread('GeneratedData\reverb_RT0_interf_SIR0.wav'); 
+[x, fs]=audioread('GeneratedData\reverb_RT0.3_white_SNR50_interf_SIR0.wav'); 
 x = x(:,1:2);
 
 % fft
